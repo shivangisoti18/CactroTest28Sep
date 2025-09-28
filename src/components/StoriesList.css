@@ -1,0 +1,30 @@
+.stories-list {
+  width: 100%;
+  background: white;
+  border-bottom: 1px solid #dbdbdb;
+  padding: 16px 0;
+}
+
+.stories-container {
+  display: flex;
+  overflow-x: auto;
+  padding: 0 16px;
+  gap: 4px;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+}
+
+.stories-container::-webkit-scrollbar {
+  display: none; /* WebKit */
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .stories-list {
+    padding: 12px 0;
+  }
+  
+  .stories-container {
+    padding: 0 12px;
+  }
+}
