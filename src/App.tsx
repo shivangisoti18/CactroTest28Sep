@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import StoriesList from './components/StoriesList'
 import StoryViewer from './components/StoryViewer'
-import { mockUsers } from './data/mockData'
-import { StoryViewerState } from './types/Story.js'
+import { useStories } from './hooks/useStories'
+import type { StoryViewerState } from './types/Story'
 import './App.css'
 
 function App() {
+  const { users, loading, error } = useStories()
   const [viewerState, setViewerState] = useState<StoryViewerState>({
     isOpen: false,
     currentUserIndex: 0,
@@ -32,6 +33,34 @@ function App() {
     setViewerState(prev => ({ ...prev, currentStoryIndex: storyIndex }))
   }
 
+  if (loading) {
+    return (
+      <div className="app">
+        <header className="app-header">
+          <h1>Instagram Stories</h1>
+        </header>
+        <div className="loading-container">
+          <div className="loading-spinner"></div>
+          <p>Loading stories...</p>
+        </div>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="app">
+        <header className="app-header">
+          <h1>Instagram Stories</h1>
+        </header>
+        <div className="error-container">
+          <p>Error loading stories: {error}</p>
+          <button onClick={() => window.location.reload()}>Retry</button>
+        </div>
+      </div>
+    )
+  }
+
   return (
     <div className="app">
       <header className="app-header">
@@ -39,12 +68,12 @@ function App() {
       </header>
       
       <StoriesList 
-        users={mockUsers} 
+        users={users} 
         onStoryClick={handleStoryClick}
       />
       
       <StoryViewer
-        users={mockUsers}
+        users={users}
         currentUserIndex={viewerState.currentUserIndex}
         currentStoryIndex={viewerState.currentStoryIndex}
         isOpen={viewerState.isOpen}

@@ -1,5 +1,5 @@
 import React from 'react';
-import { User } from '../types/Story';
+import type { User } from '../types/Story';
 import StoryRing from './StoryRing';
 import './StoriesList.css';
 

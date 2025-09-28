@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback } from 'react';
-import { User, Story } from '../types/Story';
+import type { User } from '../types/Story';
 import './StoryViewer.css';
 
 interface StoryViewerProps {

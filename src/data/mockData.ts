@@ -1,4 +1,4 @@
-import { User } from '../types/Story';
+import type { User } from '../types/Story';
 
 // Mock story data with placeholder images
 export const mockUsers: User[] = [

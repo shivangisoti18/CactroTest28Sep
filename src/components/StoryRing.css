@@ -4,11 +4,16 @@
   align-items: center;
   cursor: pointer;
   margin: 0 8px;
-  transition: transform 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  position: relative;
 }
 
 .story-ring-container:hover {
-  transform: scale(1.05);
+  transform: scale(1.08) translateY(-2px);
+}
+
+.story-ring-container:active {
+  transform: scale(0.95);
 }
 
 .story-ring {
@@ -21,14 +26,30 @@
   justify-content: center;
   position: relative;
   margin-bottom: 4px;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.story-ring:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
 }
 
 .story-ring.unviewed {
   background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%);
+  animation: pulse 2s ease-in-out infinite;
 }
 
 .story-ring.viewed {
-  background: #c7c7c7;
+  background: linear-gradient(45deg, #c7c7c7 0%, #b0b0b0 100%);
+}
+
+@keyframes pulse {
+  0%, 100% {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1), 0 0 0 0 rgba(240, 148, 51, 0.4);
+  }
+  50% {
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15), 0 0 0 4px rgba(240, 148, 51, 0.1);
+  }
 }
 
 .story-avatar {
@@ -37,6 +58,13 @@
   border-radius: 50%;
   border: 2px solid white;
   object-fit: cover;
+  transition: all 0.3s ease;
+  filter: brightness(1);
+}
+
+.story-ring-container:hover .story-avatar {
+  filter: brightness(1.1) contrast(1.05);
+  transform: scale(1.02);
 }
 
 .story-username {
@@ -47,4 +75,58 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  font-weight: 400;
+  transition: all 0.2s ease;
+}
+
+.story-ring-container:hover .story-username {
+  color: #000;
+  font-weight: 500;
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+  .story-username {
+    color: #f0f0f0;
+  }
+  
+  .story-ring-container:hover .story-username {
+    color: #ffffff;
+  }
+  
+  .story-ring.viewed {
+    background: linear-gradient(45deg, #4a4a4a 0%, #3a3a3a 100%);
+  }
+}
+
+/* Mobile touch improvements */
+@media (max-width: 768px) {
+  .story-ring-container {
+    margin: 0 6px;
+  }
+  
+  .story-ring-container:active {
+    transform: scale(0.92);
+  }
+}
+
+/* Loading shimmer effect */
+.story-avatar {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+.story-avatar[src] {
+  animation: none;
+  background: none;
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
 }
